@@ -15,6 +15,6 @@ export class PostRepository {
     }
 
     async find(postFilterQuery: FilterQuery<Post>): Promise<Post[]> {
-        return this.postModel.find(postFilterQuery);
+        return this.postModel.find(postFilterQuery).populate('created_by');
     }
 }

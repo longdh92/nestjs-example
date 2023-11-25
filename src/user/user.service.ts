@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { v4 as uuidv4 } from 'uuid';
 import { User } from './schemas/user.schema';
 import * as bcrypt from 'bcryptjs';
+import { Types } from 'mongoose';
 
 const saltRounds = 10;
 
@@ -22,7 +22,7 @@ export class UserService {
         phone: string,
     ): Promise<User> {
         return this.userRepository.create({
-            id: uuidv4(),
+            _id: new Types.ObjectId(),
             username,
             password: bcrypt.hashSync(password, saltRounds),
             email,

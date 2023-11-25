@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type UserDocument = User & Document;
@@ -6,7 +6,7 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
     @Prop()
-    id: string;
+    _id: Types.ObjectId;
 
     @Prop()
     username: string;

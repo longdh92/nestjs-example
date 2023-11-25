@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PostRepository } from './post.repository';
 import { Post } from './schemas/post.schema';
-import { v4 as uuidv4 } from 'uuid';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class PostService {
     constructor(private readonly postRepository: PostRepository) {}
 
     async getPostsByUser(userId: string): Promise<Post[]> {
-        return this.postRepository.find({ created_by: userId });
+        return this.postRepository.find({
+            created_by: new Types.ObjectId(userId),
+        });
     }
 
     async createPost(
@@ -18,10 +20,10 @@ export class PostService {
         image: string,
     ): Promise<Post> {
         return this.postRepository.create({
-            id: uuidv4(),
+            _id: new Types.ObjectId(),
             title,
             content,
-            created_by: userId,
+            created_by: new Types.ObjectId(userId),
             image,
         });
     }

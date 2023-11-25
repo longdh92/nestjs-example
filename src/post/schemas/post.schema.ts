@@ -1,11 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 
 export type PostDocument = Post & Document;
 
 @Schema()
 export class Post {
     @Prop()
-    id: string;
+    _id: Types.ObjectId;
 
     @Prop()
     title: string;
@@ -13,8 +14,8 @@ export class Post {
     @Prop()
     content: string;
 
-    @Prop()
-    created_by: string;
+    @Prop({ type: Types.ObjectId, ref: 'User' })
+    created_by: Types.ObjectId;
 
     @Prop()
     image: string;
