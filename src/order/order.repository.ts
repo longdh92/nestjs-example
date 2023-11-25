@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Order, OrderDocument } from './schemas/order.schema';
-import { Model, Types } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import {
     OrderDetails,
     OrderDetailsDocument,
@@ -16,9 +16,11 @@ export class OrderRepository {
         private orderDetailsModel: Model<OrderDetailsDocument>,
     ) {}
 
-    async findOrderWithDetails(): Promise<Order[]> {
+    async findOrderWithDetails(
+        orderFilterQuery: FilterQuery<Order>,
+    ): Promise<Order[]> {
         return this.orderModel
-            .find()
+            .find(orderFilterQuery)
             .populate({ path: 'userId', select: '-password' })
             .populate({ path: 'orderDetails' });
     }
