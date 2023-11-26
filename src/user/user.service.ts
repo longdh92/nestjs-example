@@ -3,6 +3,7 @@ import { UserRepository } from './user.repository';
 import { User } from './schemas/user.schema';
 import * as bcrypt from 'bcryptjs';
 import { Types } from 'mongoose';
+import { Role } from '../enum/role.enum';
 
 const saltRounds = 10;
 
@@ -28,6 +29,7 @@ export class UserService {
             email,
             address,
             phone,
+            role: Role.User,
         });
     }
 }

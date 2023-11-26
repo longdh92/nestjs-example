@@ -1,14 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './schemas/order.schema';
 import { Types } from 'mongoose';
+import { CreateOrderValidationPipe } from '../pipe/create-order-validation.pipe';
 
 @Controller('orders')
 export class OrderController {
     constructor(private readonly orderService: OrderService) {}
 
     @Post()
+    @UsePipes(CreateOrderValidationPipe)
     async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
         return this.orderService.createOrder(createOrderDto);
     }
