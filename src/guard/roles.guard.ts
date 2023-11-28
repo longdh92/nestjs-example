@@ -27,6 +27,6 @@ export class RolesGuard implements CanActivate {
         const users: User[] = await this.userRepository.find({
             _id: new Types.ObjectId(createPostDto.created_by),
         });
-        return users && users.length && users[0].role === requiredRole;
+        return users?.length && users[0].role === requiredRole;
     }
 }
