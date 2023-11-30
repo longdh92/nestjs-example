@@ -11,7 +11,6 @@ import { PostService } from './post.service';
 import { Post as PostSchema } from './schemas/post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
 import { RolesGuard } from '../guard/roles.guard';
-import { Role } from '../enum/role.enum';
 
 @Controller('posts')
 export class PostController {
