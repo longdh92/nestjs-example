@@ -7,6 +7,8 @@ import { PostService } from './post.service';
 import { RolesGuard } from '../guard/roles.guard';
 import { UserRepository } from '../user/user.repository';
 import { User, UserSchema } from '../user/schemas/user.schema';
+import { ConfigModule } from '@nestjs/config';
+import adminConfiguration from './admin-configuration';
 
 @Module({
     imports: [
@@ -14,6 +16,9 @@ import { User, UserSchema } from '../user/schemas/user.schema';
             { name: Post.name, schema: PostSchema },
             { name: User.name, schema: UserSchema },
         ]),
+        ConfigModule.forRoot({
+            load: [adminConfiguration],
+        }),
     ],
     controllers: [PostController],
     providers: [PostRepository, PostService, RolesGuard, UserRepository],

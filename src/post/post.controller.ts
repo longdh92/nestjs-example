@@ -10,8 +10,8 @@ import {
 import { PostService } from './post.service';
 import { Post as PostSchema } from './schemas/post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
-import { Role } from '../enum/role.enum';
 import { RolesGuard } from '../guard/roles.guard';
+import * as process from 'process';
 
 @Controller('posts')
 export class PostController {
@@ -25,7 +25,7 @@ export class PostController {
     }
 
     @Post()
-    @SetMetadata('role', Role.Admin)
+    @SetMetadata('role', process.env['requiredRole'])
     @UseGuards(RolesGuard)
     async createPost(
         @Body() createPostDto: CreatePostDto,
