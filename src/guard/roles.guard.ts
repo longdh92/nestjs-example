@@ -5,19 +5,21 @@ import { CreatePostDto } from '../post/dto/create-post.dto';
 import { UserRepository } from '../user/user.repository';
 import { User } from '../user/schemas/user.schema';
 import { Types } from 'mongoose';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
     constructor(
         private reflector: Reflector,
         private readonly userRepository: UserRepository,
+        private readonly configService: ConfigService,
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const requiredRole = this.reflector.get<Role>(
-            'role',
-            context.getHandler(),
-        );
+        const requiredRole =
+            this.reflector.get<Role>('role', context.getHandler()) ||
+            this.configService.get('requiredRole') ||
+            Role.Admin;
         if (!requiredRole) {
             return true;
         }

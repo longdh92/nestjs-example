@@ -8,7 +8,7 @@ import { RolesGuard } from '../guard/roles.guard';
 import { UserRepository } from '../user/user.repository';
 import { User, UserSchema } from '../user/schemas/user.schema';
 import { ConfigModule } from '@nestjs/config';
-import adminConfiguration from './admin-configuration';
+import userConfiguration from './user.configuration';
 
 @Module({
     imports: [
@@ -17,7 +17,7 @@ import adminConfiguration from './admin-configuration';
             { name: User.name, schema: UserSchema },
         ]),
         ConfigModule.forRoot({
-            load: [adminConfiguration],
+            load: [userConfiguration],
         }),
     ],
     controllers: [PostController],
