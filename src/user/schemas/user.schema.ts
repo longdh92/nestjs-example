@@ -6,16 +6,16 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-    @Prop()
+    @Prop({ required: true })
     _id: Types.ObjectId;
 
-    @Prop()
+    @Prop({ unique: true })
     username: string;
 
     @Prop()
     password: string;
 
-    @Prop()
+    @Prop({ unique: true })
     email: string;
 
     @Prop()

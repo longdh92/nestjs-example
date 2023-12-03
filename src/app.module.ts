@@ -10,6 +10,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { NotFoundExceptionFilter } from './exception/not-found-exception.filter';
 import { ConfigAppModule } from './config/config-app.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         PostModule,
         ProductModule,
         OrderModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [
