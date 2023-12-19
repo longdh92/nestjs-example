@@ -4,6 +4,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './schemas/order.schema';
 import { Types } from 'mongoose';
 import { CreateOrderValidationPipe } from '../pipe/create-order-validation.pipe';
+import { PublicDecorator } from '../guard/public.decorator';
 
 @Controller('orders')
 export class OrderController {
@@ -16,11 +17,13 @@ export class OrderController {
     }
 
     @Get()
+    @PublicDecorator()
     async getOrder(): Promise<Order[]> {
         return this.orderService.findOrderWithDetails({});
     }
 
     @Get(':code')
+    @PublicDecorator()
     async getOrderByCode(@Param('code') code: string): Promise<Order[]> {
         return this.orderService.findOrderWithDetails({
             _id: new Types.ObjectId(code),
