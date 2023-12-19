@@ -21,10 +21,10 @@ export class User {
     @Prop()
     phone: string;
 
-    @Prop({ default: Role.User })
+    @Prop()
     address: string;
 
-    @Prop()
+    @Prop({ default: Role.User })
     role: Role;
 }
 
